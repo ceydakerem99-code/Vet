@@ -1,0 +1,71 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+publish/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.vspscc
+*.vssscc
+
+# User-specific files
+*.rsuser
+*.sln.docstates
+
+# Build logs
+*.log
+msbuild*.log
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# dotnet
+*.DotSettings.user
+project.lock.json
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Database files
+*.db
+*.sqlite
+
+# Log files
+*.log
+*.txt
+!README.txt
+
+# Backup files
+*~
+*.bak
+*.swp
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NCrunch
+*.ncrunch*
+_NCrunch_*
+
+# Publish files
+PublishScripts/

@@ -29,7 +29,7 @@ namespace VeterinerProjectApp
             this.Text = "Rapor Oluştur";
             this.Size = new Size(900, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(255, 251, 224);
+            this.BackColor = Color.FromArgb(62, 166, 107);
 
             // Başlık
             Label lblTitle = new Label();

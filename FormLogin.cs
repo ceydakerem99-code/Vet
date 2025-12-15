@@ -19,24 +19,24 @@ namespace VeterinerProjectApp
             this.Size = new Size(1390, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(255, 251, 224);
+            this.BackColor = Color.FromArgb(62, 166, 107);
 
-            // Başlık
+            // Başlık - ORTALI
             Label lblTitle = new Label();
             lblTitle.Text = "🐾 VETERİNER KLİNİK";
             lblTitle.Font = new Font("Segoe UI", 28, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(80, 80, 80);
+            lblTitle.ForeColor = Color.White;
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(520, 100);
+            lblTitle.Location = new Point(480, 100);
             this.Controls.Add(lblTitle);
 
-            // Alt başlık
+            // Alt başlık - SİYAH
             Label lblSubtitle = new Label();
             lblSubtitle.Text = "Sisteme Giriş Yapın";
             lblSubtitle.Font = new Font("Segoe UI", 14);
-            lblSubtitle.ForeColor = Color.Gray;
+            lblSubtitle.ForeColor = Color.Black;
             lblSubtitle.AutoSize = true;
-            lblSubtitle.Location = new Point(600, 160);
+            lblSubtitle.Location = new Point(580, 160);
             this.Controls.Add(lblSubtitle);
 
             // E-posta label

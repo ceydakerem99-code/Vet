@@ -27,7 +27,7 @@ namespace VeterinerProjectApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form12 yeniForm = new Form12();
+            FormHastaGoruntule yeniForm = new FormHastaGoruntule();
             this.Hide();
             yeniForm.Show();
             yeniForm.FormClosed += (s, args) => this.Close();

@@ -35,7 +35,8 @@ namespace VeterinerProjectApp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            FormHastaGoruntule yeniForm = new FormHastaGoruntule();
+            // Patili Koruyucu için - SADECE sokak hayvanlarını göster
+            FormHastaGoruntuleSokak yeniForm = new FormHastaGoruntuleSokak();
             this.Hide();
             yeniForm.Show();
             yeniForm.FormClosed += (s, args) => this.Close();

@@ -299,9 +299,9 @@ namespace VeterinerProjectApp.Models
         /// </summary>
         protected void SifreBelirle(string sifre)
         {
-            if (string.IsNullOrWhiteSpace(sifre) || sifre.Length < 6)
+            if (string.IsNullOrWhiteSpace(sifre) || sifre.Length < 4)
             {
-                throw new ArgumentException("Şifre en az 6 karakter olmalıdır.");
+                throw new ArgumentException("Şifre en az 4 karakter olmalıdır.");
             }
             // Basit hash işlemi (gerçek uygulamada daha güvenli bir yöntem kullanılmalı)
             _sifre = SifreHashle(sifre);

@@ -16,6 +16,7 @@ namespace VeterinerProjectApp.Services
         private static readonly object _lock = new object();
         
         private readonly string _veriKlasoru;
+        private readonly string _veriDosyasiYolu;
         private List<EvcilHayvan> _evcilHayvanlar;
         private List<SokakHayvani> _sokakHayvanlari;
         private List<VeterinerAdmin> _veterinerler;
@@ -52,6 +53,7 @@ namespace VeterinerProjectApp.Services
         private VeriYoneticisi()
         {
             _veriKlasoru = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Veriler");
+            _veriDosyasiYolu = Path.Combine(_veriKlasoru, "veriler.json");
             
             if (!Directory.Exists(_veriKlasoru))
                 Directory.CreateDirectory(_veriKlasoru);
@@ -63,6 +65,9 @@ namespace VeterinerProjectApp.Services
             _sorumlular = new List<SokakHayvaniSorumlusu>();
             _randevular = new List<Randevu>();
             _muayeneler = new List<Muayene>();
+            
+            // Uygulama başladığında kayıtlı verileri yükle
+            VerileriYukle();
         }
 
         #region Properties
@@ -93,6 +98,7 @@ namespace VeterinerProjectApp.Services
             if (hayvan != null && !_evcilHayvanlar.Contains(hayvan))
             {
                 _evcilHayvanlar.Add(hayvan);
+                VerileriKaydet(); // Otomatik kaydet
             }
         }
 
@@ -101,6 +107,7 @@ namespace VeterinerProjectApp.Services
             if (hayvan != null && !_sokakHayvanlari.Contains(hayvan))
             {
                 _sokakHayvanlari.Add(hayvan);
+                VerileriKaydet(); // Otomatik kaydet
             }
         }
 
@@ -122,7 +129,11 @@ namespace VeterinerProjectApp.Services
         {
             var hayvan = EvcilHayvanBul(id);
             if (hayvan != null)
-                return _evcilHayvanlar.Remove(hayvan);
+            {
+                var result = _evcilHayvanlar.Remove(hayvan);
+                VerileriKaydet(); // Otomatik kaydet
+                return result;
+            }
             return false;
         }
 
@@ -133,19 +144,28 @@ namespace VeterinerProjectApp.Services
         public void VeterinerEkle(VeterinerAdmin veteriner)
         {
             if (veteriner != null)
+            {
                 _veterinerler.Add(veteriner);
+                VerileriKaydet(); // Otomatik kaydet
+            }
         }
 
         public void HayvanSahibiEkle(HayvanSahibi sahip)
         {
             if (sahip != null)
+            {
                 _hayvanSahipleri.Add(sahip);
+                VerileriKaydet(); // Otomatik kaydet
+            }
         }
 
         public void SorumluEkle(SokakHayvaniSorumlusu sorumlu)
         {
             if (sorumlu != null)
+            {
                 _sorumlular.Add(sorumlu);
+                VerileriKaydet(); // Otomatik kaydet
+            }
         }
 
         #endregion
@@ -155,7 +175,10 @@ namespace VeterinerProjectApp.Services
         public void RandevuEkle(Randevu randevu)
         {
             if (randevu != null)
+            {
                 _randevular.Add(randevu);
+                VerileriKaydet(); // Otomatik kaydet
+            }
         }
 
         public Randevu RandevuBul(int id)
@@ -181,7 +204,10 @@ namespace VeterinerProjectApp.Services
         public void MuayeneEkle(Muayene muayene)
         {
             if (muayene != null)
+            {
                 _muayeneler.Add(muayene);
+                VerileriKaydet(); // Otomatik kaydet
+            }
         }
 
         public int GunlukMuayeneSayisi(DateTime tarih)
@@ -201,5 +227,105 @@ namespace VeterinerProjectApp.Services
         public int ToplamKullaniciSayisi() => _veterinerler.Count + _hayvanSahipleri.Count + _sorumlular.Count;
 
         #endregion
+
+        #region Veri Kaydetme/Yükleme
+
+        /// <summary>
+        /// Tüm verileri JSON dosyasına kaydeder
+        /// </summary>
+        public void VerileriKaydet()
+        {
+            try
+            {
+                var tumVeriler = new VeriPaketi
+                {
+                    EvcilHayvanlar = _evcilHayvanlar,
+                    SokakHayvanlari = _sokakHayvanlari,
+                    Veterinerler = _veterinerler,
+                    HayvanSahipleri = _hayvanSahipleri,
+                    Sorumlular = _sorumlular,
+                    Randevular = _randevular,
+                    Muayeneler = _muayeneler,
+                    SonHayvanId = _sonHayvanId,
+                    SonKullaniciId = _sonKullaniciId,
+                    SonRandevuId = _sonRandevuId,
+                    SonMuayeneId = _sonMuayeneId
+                };
+
+                var options = new JsonSerializerOptions 
+                { 
+                    WriteIndented = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                
+                string json = JsonSerializer.Serialize(tumVeriler, options);
+                File.WriteAllText(_veriDosyasiYolu, json);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Veri kaydetme hatası: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// JSON dosyasından verileri yükler
+        /// </summary>
+        public void VerileriYukle()
+        {
+            try
+            {
+                if (File.Exists(_veriDosyasiYolu))
+                {
+                    string json = File.ReadAllText(_veriDosyasiYolu);
+                    
+                    var options = new JsonSerializerOptions 
+                    { 
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    };
+                    
+                    var tumVeriler = JsonSerializer.Deserialize<VeriPaketi>(json, options);
+                    
+                    if (tumVeriler != null)
+                    {
+                        _evcilHayvanlar = tumVeriler.EvcilHayvanlar ?? new List<EvcilHayvan>();
+                        _sokakHayvanlari = tumVeriler.SokakHayvanlari ?? new List<SokakHayvani>();
+                        _veterinerler = tumVeriler.Veterinerler ?? new List<VeterinerAdmin>();
+                        _hayvanSahipleri = tumVeriler.HayvanSahipleri ?? new List<HayvanSahibi>();
+                        _sorumlular = tumVeriler.Sorumlular ?? new List<SokakHayvaniSorumlusu>();
+                        _randevular = tumVeriler.Randevular ?? new List<Randevu>();
+                        _muayeneler = tumVeriler.Muayeneler ?? new List<Muayene>();
+                        _sonHayvanId = tumVeriler.SonHayvanId;
+                        _sonKullaniciId = tumVeriler.SonKullaniciId;
+                        _sonRandevuId = tumVeriler.SonRandevuId;
+                        _sonMuayeneId = tumVeriler.SonMuayeneId;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Veri yükleme hatası: {ex.Message}");
+            }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// JSON serileştirme için veri paketi sınıfı
+    /// </summary>
+    public class VeriPaketi
+    {
+        public List<EvcilHayvan> EvcilHayvanlar { get; set; }
+        public List<SokakHayvani> SokakHayvanlari { get; set; }
+        public List<VeterinerAdmin> Veterinerler { get; set; }
+        public List<HayvanSahibi> HayvanSahipleri { get; set; }
+        public List<SokakHayvaniSorumlusu> Sorumlular { get; set; }
+        public List<Randevu> Randevular { get; set; }
+        public List<Muayene> Muayeneler { get; set; }
+        public int SonHayvanId { get; set; }
+        public int SonKullaniciId { get; set; }
+        public int SonRandevuId { get; set; }
+        public int SonMuayeneId { get; set; }
     }
 }
+

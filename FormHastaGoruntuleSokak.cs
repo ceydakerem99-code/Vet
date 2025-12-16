@@ -4,17 +4,14 @@ using System.Linq;
 using System.Windows.Forms;
 using VeterinerProjectApp.Services;
 using VeterinerProjectApp.Models;
-using VeterinerProjectApp.Enums;
 
 namespace VeterinerProjectApp
 {
     /// <summary>
-    /// Rol bazlı hasta görüntüleme formu
-    /// Admin: Tüm hayvanları ve işlemleri görür
-    /// Hayvan Sahibi: Sadece kendi hayvanlarını görür
-    /// Sokak Hayvanı Sorumlusu: Getirdiği hayvanları görür
+    /// Sadece sokak hayvanlarını görüntüleyen form
+    /// Patili Koruyucu (Sokak Hayvanı Sorumlusu) için özel
     /// </summary>
-    public partial class FormHastaGoruntule : Form
+    public partial class FormHastaGoruntuleSokak : Form
     {
         private ComboBox cmbHayvanlar;
         private RichTextBox txtDetaylar;
@@ -22,25 +19,21 @@ namespace VeterinerProjectApp
         private Button btnAnaSayfa;
         private Label lblBaslik;
 
-        public FormHastaGoruntule()
+        public FormHastaGoruntuleSokak()
         {
             InitializeComponent();
         }
 
         private void InitializeComponent()
         {
-            this.Text = "Hasta Görüntüle";
+            this.Text = "Sokak Hayvanları - Hasta Görüntüle";
             this.Size = new Size(1000, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.FromArgb(62, 166, 107);
 
-            var oturum = OturumYoneticisi.Instance;
-            string rolMetni = oturum.VeterinerAdminMi() ? "Yönetici" : 
-                              oturum.SokakHayvaniSorumlusuMu() ? "Patili Koruyucu" : "Hayvan Sahibi";
-
             // Başlık
             lblBaslik = new Label();
-            lblBaslik.Text = $"🐾 Hasta Görüntüle - {rolMetni}";
+            lblBaslik.Text = "🐕 Sokak Hayvanları";
             lblBaslik.Font = new Font("Segoe UI", 18, FontStyle.Bold);
             lblBaslik.Location = new Point(30, 20);
             lblBaslik.AutoSize = true;
@@ -108,48 +101,38 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnAnaSayfa);
 
-            this.Load += FormHastaGoruntule_Load;
+            this.Load += FormHastaGoruntuleSokak_Load;
         }
 
-        private void FormHastaGoruntule_Load(object sender, EventArgs e)
+        private void FormHastaGoruntuleSokak_Load(object sender, EventArgs e)
         {
-            HayvanlariYukle();
+            SokakHayvanlariniYukle();
         }
 
-        private void HayvanlariYukle()
+        private void SokakHayvanlariniYukle()
         {
             var veri = VeriYoneticisi.Instance;
             var oturum = OturumYoneticisi.Instance;
             cmbHayvanlar.Items.Clear();
 
+            // SADECE sokak hayvanlarını göster
+            int sorumluId = oturum.AktifKullanici?.Id ?? 0;
+            
+            // Admin veya sorumlu ise ilgili sokak hayvanlarını göster
             if (oturum.VeterinerAdminMi())
             {
-                // Admin tüm hayvanları görür
-                foreach (var h in veri.EvcilHayvanlar)
-                {
-                    cmbHayvanlar.Items.Add(new HayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Sahip: {h.SahipAdi}", "Evcil"));
-                }
+                // Admin tüm sokak hayvanlarını görür
                 foreach (var h in veri.SokakHayvanlari)
                 {
-                    cmbHayvanlar.Items.Add(new HayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Bölge: {h.BulunduguBolge}", "Sokak"));
-                }
-            }
-            else if (oturum.SokakHayvaniSorumlusuMu())
-            {
-                // Sorumlu sadece getirdiği sokak hayvanlarını görür
-                int sorumluId = oturum.AktifKullanici?.Id ?? 0;
-                foreach (var h in veri.SokakHayvanlari.Where(x => x.SorumluId == sorumluId || x.SorumluId == 0))
-                {
-                    cmbHayvanlar.Items.Add(new HayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Bölge: {h.BulunduguBolge}", "Sokak"));
+                    cmbHayvanlar.Items.Add(new SokakHayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Bölge: {h.BulunduguBolge}"));
                 }
             }
             else
             {
-                // Hayvan sahibi sadece kendi hayvanlarını görür
-                int sahipId = oturum.AktifKullanici?.Id ?? 0;
-                foreach (var h in veri.EvcilHayvanlar.Where(x => x.SahipId == sahipId))
+                // Sorumlu sadece getirdiği veya sahipsiz sokak hayvanlarını görür
+                foreach (var h in veri.SokakHayvanlari.Where(x => x.SorumluId == sorumluId || x.SorumluId == 0))
                 {
-                    cmbHayvanlar.Items.Add(new HayvanItem(h.Id, $"{h.Ad} ({h.Tur})", "Evcil"));
+                    cmbHayvanlar.Items.Add(new SokakHayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Bölge: {h.BulunduguBolge}"));
                 }
             }
 
@@ -157,8 +140,8 @@ namespace VeterinerProjectApp
                 cmbHayvanlar.SelectedIndex = 0;
             else
             {
-                txtDetaylar.Text = "Görüntülenecek hasta bulunamadı.";
-                lstIslemler.Items.Add("Henüz kayıtlı hayvan yok.");
+                txtDetaylar.Text = "Görüntülenecek sokak hayvanı bulunamadı.";
+                lstIslemler.Items.Add("Henüz kayıtlı sokak hayvanı yok.");
             }
         }
 
@@ -166,50 +149,26 @@ namespace VeterinerProjectApp
         {
             if (cmbHayvanlar.SelectedItem == null) return;
 
-            var item = (HayvanItem)cmbHayvanlar.SelectedItem;
+            var item = (SokakHayvanItem)cmbHayvanlar.SelectedItem;
             var veri = VeriYoneticisi.Instance;
 
             txtDetaylar.Clear();
             lstIslemler.Items.Clear();
 
-            if (item.Tip == "Evcil")
+            var hayvan = veri.SokakHayvanlari.FirstOrDefault(h => h.Id == item.Id);
+            if (hayvan != null)
             {
-                var hayvan = veri.EvcilHayvanlar.FirstOrDefault(h => h.Id == item.Id);
-                if (hayvan != null)
-                {
-                    txtDetaylar.AppendText($"═══════════════════════════════════════\n");
-                    txtDetaylar.AppendText($"  🐾 {hayvan.Ad}\n");
-                    txtDetaylar.AppendText($"═══════════════════════════════════════\n\n");
-                    txtDetaylar.AppendText($"  Tür: {hayvan.Tur}\n");
-                    txtDetaylar.AppendText($"  Irk: {hayvan.Irk}\n");
-                    txtDetaylar.AppendText($"  Yaş: {hayvan.Yas}\n");
-                    txtDetaylar.AppendText($"  Cinsiyet: {hayvan.Cinsiyet}\n");
-                    txtDetaylar.AppendText($"  Sahip: {hayvan.SahipAdi}\n");
-                    txtDetaylar.AppendText($"  Chip No: {hayvan.ChipNumarasi}\n");
-                    txtDetaylar.AppendText($"  Sağlık: {hayvan.SaglikDurumu}\n");
-                    txtDetaylar.AppendText($"  Kısır: {(hayvan.KisirlastirildiMi ? "Evet" : "Hayır")}\n");
+                txtDetaylar.AppendText($"═══════════════════════════════════════\n");
+                txtDetaylar.AppendText($"  🐕 {hayvan.Ad} (Sokak Hayvanı)\n");
+                txtDetaylar.AppendText($"═══════════════════════════════════════\n\n");
+                txtDetaylar.AppendText($"  Tür: {hayvan.Tur}\n");
+                txtDetaylar.AppendText($"  Tahmini Yaş: {hayvan.Yas}\n");
+                txtDetaylar.AppendText($"  Bölge: {hayvan.BulunduguBolge}\n");
+                txtDetaylar.AppendText($"  Sağlık: {hayvan.SaglikDurumu}\n");
+                txtDetaylar.AppendText($"  Kısır: {(hayvan.KisirlastirildiMi ? "Evet" : "Hayır")}\n");
+                txtDetaylar.AppendText($"  Tedavi Onaylı: {(hayvan.TedaviOnayliMi ? "Evet" : "Hayır")}\n");
 
-                    // İşlemleri göster
-                    IslemleriGoster(item.Id);
-                }
-            }
-            else
-            {
-                var hayvan = veri.SokakHayvanlari.FirstOrDefault(h => h.Id == item.Id);
-                if (hayvan != null)
-                {
-                    txtDetaylar.AppendText($"═══════════════════════════════════════\n");
-                    txtDetaylar.AppendText($"  🐕 {hayvan.Ad} (Sokak Hayvanı)\n");
-                    txtDetaylar.AppendText($"═══════════════════════════════════════\n\n");
-                    txtDetaylar.AppendText($"  Tür: {hayvan.Tur}\n");
-                    txtDetaylar.AppendText($"  Tahmini Yaş: {hayvan.Yas}\n");
-                    txtDetaylar.AppendText($"  Bölge: {hayvan.BulunduguBolge}\n");
-                    txtDetaylar.AppendText($"  Sağlık: {hayvan.SaglikDurumu}\n");
-                    txtDetaylar.AppendText($"  Kısır: {(hayvan.KisirlastirildiMi ? "Evet" : "Hayır")}\n");
-                    txtDetaylar.AppendText($"  Tedavi Onaylı: {(hayvan.TedaviOnayliMi ? "Evet" : "Hayır")}\n");
-
-                    IslemleriGoster(item.Id);
-                }
+                IslemleriGoster(item.Id);
             }
         }
 
@@ -247,20 +206,18 @@ namespace VeterinerProjectApp
         }
 
         // Yardımcı sınıf
-        private class HayvanItem
+        private class SokakHayvanItem
         {
             public int Id { get; set; }
             public string Metin { get; set; }
-            public string Tip { get; set; }
 
-            public HayvanItem(int id, string metin, string tip)
+            public SokakHayvanItem(int id, string metin)
             {
                 Id = id;
                 Metin = metin;
-                Tip = tip;
             }
 
-            public override string ToString() => $"[{Tip}] {Metin}";
+            public override string ToString() => $"[Sokak] {Metin}";
         }
     }
 }

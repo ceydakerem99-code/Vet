@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using VeterinerProjectApp.Services;
 using VeterinerProjectApp.Models;
@@ -20,6 +21,8 @@ namespace VeterinerProjectApp
         private TextBox txtUcret;
         private Button btnKaydet;
         private Button btnAnaSayfa;
+        private CheckBox chkKisir;
+        private CheckBox chkAsiTam;
 
         public FormIslemKayit()
         {
@@ -29,7 +32,7 @@ namespace VeterinerProjectApp
         private void InitializeComponent()
         {
             this.Text = "İşlem Kayıt - Doktor Paneli";
-            this.Size = new Size(800, 700);
+            this.Size = new Size(800, 800);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.FromArgb(62, 166, 107);
 
@@ -107,6 +110,24 @@ namespace VeterinerProjectApp
             txtUcret.Text = "0";
             this.Controls.Add(txtUcret);
 
+            // Kısırlık ve Aşı Checkbox'ları - Doktor Düzenleyebilir
+            y += 50;
+            chkKisir = new CheckBox();
+            chkKisir.Text = "Kısırlaştırıldı";
+            chkKisir.Location = new Point(inputX, y);
+            chkKisir.AutoSize = true;
+            chkKisir.Font = new Font("Segoe UI", 10);
+            chkKisir.ForeColor = Color.White;
+            this.Controls.Add(chkKisir);
+
+            chkAsiTam = new CheckBox();
+            chkAsiTam.Text = "Aşıları Tamamlandı";
+            chkAsiTam.Location = new Point(inputX + 150, y);
+            chkAsiTam.AutoSize = true;
+            chkAsiTam.Font = new Font("Segoe UI", 10);
+            chkAsiTam.ForeColor = Color.White;
+            this.Controls.Add(chkAsiTam);
+
             // Kaydet butonu
             btnKaydet = new Button();
             btnKaydet.Text = "💾 İşlemi Kaydet";
@@ -150,6 +171,57 @@ namespace VeterinerProjectApp
 
         private void FormIslemKayit_Load(object sender, EventArgs e)
         {
+            // Oturum kontrolü - kullanıcı kayıtlı mı?
+            var oturum = OturumYoneticisi.Instance;
+            
+            if (!oturum.OturumAktifMi || oturum.AktifKullanici == null)
+            {
+                // Kullanıcı giriş yapmamış
+                var result = MessageBox.Show(
+                    "⚠️ İşlem kaydı için giriş yapmanız gerekmektedir!\n\n" +
+                    "Hesabınız var mı?\n" +
+                    "• Evet → Giriş ekranına yönlendirileceksiniz\n" +
+                    "• Hayır → Kayıt ekranına yönlendirileceksiniz",
+                    "Giriş Gerekli",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                
+                if (result == DialogResult.Yes)
+                {
+                    // Giriş ekranına yönlendir
+                    FormLogin loginForm = new FormLogin();
+                    this.Hide();
+                    loginForm.Show();
+                    loginForm.FormClosed += (s, args) => this.Close();
+                }
+                else
+                {
+                    // Kayıt ekranına yönlendir
+                    FormKayit kayitForm = new FormKayit();
+                    this.Hide();
+                    kayitForm.Show();
+                    kayitForm.FormClosed += (s, args) => this.Close();
+                }
+                return;
+            }
+            
+            // Sadece admin veya veteriner işlem kaydı yapabilir
+            if (!oturum.VeterinerAdminMi())
+            {
+                MessageBox.Show(
+                    "⚠️ İşlem kaydı sadece Klinik Yöneticisi veya Veteriner tarafından yapılabilir!\n\n" +
+                    "Pet kullanıcısı olarak bu bölüme erişim yetkiniz yoktur.",
+                    "Erişim Engellendi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                
+                Form1 anaForm = new Form1();
+                this.Hide();
+                anaForm.Show();
+                anaForm.FormClosed += (s, args) => this.Close();
+                return;
+            }
+            
             // Hayvanları yükle
             var veri = VeriYoneticisi.Instance;
             cmbHayvan.Items.Clear();
@@ -213,10 +285,31 @@ namespace VeterinerProjectApp
 
             veri.MuayeneEkle(muayene);
 
+            // Hayvan bilgilerini güncelle (kısırlık, aşı)
+            if (secim.Contains("[Evcil]"))
+            {
+                var hayvan = veri.EvcilHayvanlar.FirstOrDefault(h => h.Id == hayvanId);
+                if (hayvan != null)
+                {
+                    if (chkKisir.Checked && !hayvan.KisirlastirildiMi)
+                        hayvan.Kisirlastir();
+                }
+            }
+            else if (secim.Contains("[Sokak]"))
+            {
+                var hayvan = veri.SokakHayvanlari.FirstOrDefault(h => h.Id == hayvanId);
+                if (hayvan != null)
+                {
+                    if (chkKisir.Checked && !hayvan.KisirlastirildiMi)
+                        hayvan.Kisirlastir();
+                }
+            }
+
             MessageBox.Show(
                 $"✅ İşlem başarıyla kaydedildi!\n\n" +
                 $"Hasta ID: {hayvanId}\n" +
                 $"İşlem: {txtYapilanIslem.Text.Substring(0, Math.Min(50, txtYapilanIslem.Text.Length))}...\n" +
+                $"Kısırlık: {(chkKisir.Checked ? "Güncellendi" : "Değişiklik yok")}\n" +
                 $"Ücret: {ucret:N2} TL",
                 "Başarılı",
                 MessageBoxButtons.OK,
@@ -228,6 +321,8 @@ namespace VeterinerProjectApp
             txtYapilanIslem.Clear();
             txtRecete.Clear();
             txtUcret.Text = "0";
+            chkKisir.Checked = false;
+            chkAsiTam.Checked = false;
         }
     }
 }

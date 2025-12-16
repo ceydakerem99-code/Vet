@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veteriner Klinik Yönetim Sistemi - Sunum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 60px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #00d9ff;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin: 20px 0 15px 0;
+            color: #00ff88;
+        }
+
+        p,
+        li {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+
+        ul {
+            margin-left: 40px;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        th,
+        td {
+            padding: 15px 20px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        th {
+            background: linear-gradient(90deg, #00d9ff33, #00ff8833);
+            color: #00ff88;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 1.1em;
+            border-left: 4px solid #00ff88;
+            overflow-x: auto;
+        }
+
+        .code-block .keyword {
+            color: #ff79c6;
+        }
+
+        .code-block .class {
+            color: #8be9fd;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 10px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .big-emoji {
+            font-size: 5em;
+            margin: 20px 0;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav button {
+            padding: 15px 25px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            transition: width 0.3s;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 35px;
+            left: 30px;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .check {
+            color: #00ff88;
+        }
+
+        .tree-line {
+            font-family: monospace;
+            font-size: 1.3em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active" id="slide1">
+        <div class="center">
+            <div class="big-emoji">🐾</div>
+            <h1>VETERİNER KLİNİK YÖNETİM SİSTEMİ</h1>
+            <p style="font-size: 1.8em; margin-top: 30px;">Windows Forms Masaüstü Uygulaması</p>
+            <p style="color: #888; margin-top: 50px;">C# | .NET 8 | Windows Forms</p>
+
+        </div>
+    </div>
+
+    <!-- Slide 2: Project Overview -->
+    <div class="slide" id="slide2">
+        <h2>📋 Proje Tanıtımı</h2>
+        <div class="two-column">
+            <div>
+                <div class="card">
+                    <h3>🎯 Amaç</h3>
+                    <p>Veteriner kliniklerinin günlük işlemlerini dijitalleştiren kapsamlı bir yönetim sistemi</p>
+                </div>
+                <div class="card">
+                    <h3>💻 Platform</h3>
+                    <ul>
+                        <li>Windows Forms (.NET 8)</li>
+                        <li>C# Programlama Dili</li>
+                        <li>JSON / SQLite Veritabanı</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>📊 Proje Boyutu</h3>
+                    <ul>
+                        <li><span class="highlight">15+</span> Windows Form</li>
+                        <li><span class="highlight">12</span> Model Sınıfı</li>
+                        <li><span class="highlight">4</span> Servis</li>
+                        <li><span class="highlight">4</span> Interface</li>
+                        <li><span class="highlight">4</span> Enum</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: User Roles -->
+    <div class="slide" id="slide3">
+        <h2>👥 Kullanıcı Rolleri</h2>
+        <table>
+            <tr>
+                <th>👨‍⚕️ Klinik Yöneticisi</th>
+                <th>👤 Pet Kullanıcısı</th>
+                <th>🐕 Patili Koruyucu</th>
+            </tr>
+            <tr>
+                <td>✅ Tüm yetkiler</td>
+                <td>✅ Kendi hayvanlarını görme</td>
+                <td>✅ Sokak hayvanlarını görme</td>
+            </tr>
+            <tr>
+                <td>✅ Randevu onaylama/reddetme</td>
+                <td>✅ Randevu alma</td>
+                <td>✅ Hayvan getirme kaydı</td>
+            </tr>
+            <tr>
+                <td>✅ İşlem/Muayene kaydetme</td>
+                <td>✅ Geçmiş işlemleri görme</td>
+                <td>✅ Tedavi takibi</td>
+            </tr>
+            <tr>
+                <td>✅ Rapor oluşturma</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Slide 4: OOP Principles -->
+    <div class="slide" id="slide4">
+        <h2>🎓 Nesne Yönelimli Programlama (OOP)</h2>
+        <div class="two-column">
+            <div>
+                <div class="card">
+                    <h3>✅ Encapsulation (Kapsülleme)</h3>
+                    <p>Private alanlar, public property'ler ile veri koruması</p>
+                </div>
+                <div class="card">
+                    <h3>✅ Inheritance (Kalıtım)</h3>
+                    <p>Base sınıflardan türetilen alt sınıflar</p>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>✅ Polymorphism (Çok Biçimlilik)</h3>
+                    <p>Override metodlar ile farklı davranışlar</p>
+                </div>
+                <div class="card">
+                    <h3>✅ Abstraction (Soyutlama)</h3>
+                    <p>Interface ve abstract sınıflar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Class Hierarchy -->
+    <div class="slide" id="slide5">
+        <h2>🏗️ Class Yapısı (Kalıtım)</h2>
+        <div class="two-column">
+            <div class="card">
+                <h3>Kullanıcı Hiyerarşisi</h3>
+                <div class="tree-line">
+                    <span class="highlight">KullaniciBase</span> (abstract)<br>
+                    &nbsp;&nbsp;├── VeterinerAdmin<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── DiplomaNo, UzmanlikAlani<br>
+                    &nbsp;&nbsp;├── HayvanSahibi<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Adres, HayvanSayisi<br>
+                    &nbsp;&nbsp;└── SokakHayvaniSorumlusu<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── SorumluOlduguBolge
+                </div>
+            </div>
+            <div class="card">
+                <h3>Hayvan Hiyerarşisi</h3>
+                <div class="tree-line">
+                    <span class="highlight">HayvanBase</span> (abstract)<br>
+                    &nbsp;&nbsp;├── EvcilHayvan<br>
+                    &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── SahipId, ChipNumarasi<br>
+                    &nbsp;&nbsp;└── SokakHayvani<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── BulunduguBolge, TedaviOnayliMi
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Interfaces -->
+    <div class="slide" id="slide6">
+        <h2>🔌 Interface Yapısı</h2>
+        <table>
+            <tr>
+                <th>Interface</th>
+                <th>Açıklama</th>
+                <th>Metodlar</th>
+            </tr>
+            <tr>
+                <td>IKullanici</td>
+                <td>Kullanıcı işlemleri</td>
+                <td>GirisYap(), CikisYap(), YetkiKontrol()</td>
+            </tr>
+            <tr>
+                <td>IHayvan</td>
+                <td>Hayvan işlemleri</td>
+                <td>BilgileriGoster(), SaglikDurumuGuncelle()</td>
+            </tr>
+            <tr>
+                <td>IMuayene</td>
+                <td>Muayene işlemleri</td>
+                <td>MuayeneBaslat(), MuayeneBitir()</td>
+            </tr>
+            <tr>
+                <td>ITedavi</td>
+                <td>Tedavi işlemleri</td>
+                <td>TedaviUygula(), TedaviTamamla()</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Slide 7: Interface Code Example -->
+    <div class="slide" id="slide7">
+        <h2>💻 IKullanici Interface Kodu</h2>
+        <div class="code-block" style="font-size: 0.95em;">
+            <pre style="margin: 0; color: #e6e6e6;">
+<span style="color: #ff79c6;">public interface</span> <span style="color: #8be9fd;">IKullanici</span>
+{
+    <span style="color: #6272a4;">// Properties (Özellikler)</span>
+    <span style="color: #ff79c6;">int</span> Id { <span style="color: #ff79c6;">get</span>; <span style="color: #ff79c6;">set</span>; }
+    <span style="color: #ff79c6;">string</span> Ad { <span style="color: #ff79c6;">get</span>; <span style="color: #ff79c6;">set</span>; }
+    <span style="color: #ff79c6;">string</span> Soyad { <span style="color: #ff79c6;">get</span>; <span style="color: #ff79c6;">set</span>; }
+    <span style="color: #ff79c6;">string</span> Email { <span style="color: #ff79c6;">get</span>; <span style="color: #ff79c6;">set</span>; }
+    <span style="color: #8be9fd;">KullaniciRolu</span> Rol { <span style="color: #ff79c6;">get</span>; }
+    <span style="color: #8be9fd;">DateTime</span> KayitTarihi { <span style="color: #ff79c6;">get</span>; }
+    <span style="color: #ff79c6;">bool</span> AktifMi { <span style="color: #ff79c6;">get</span>; <span style="color: #ff79c6;">set</span>; }
+    
+    <span style="color: #6272a4;">// Methods (Metotlar)</span>
+    <span style="color: #ff79c6;">bool</span> <span style="color: #50fa7b;">GirisYap</span>(<span style="color: #ff79c6;">string</span> email, <span style="color: #ff79c6;">string</span> sifre);
+    <span style="color: #ff79c6;">void</span> <span style="color: #50fa7b;">CikisYap</span>();
+    <span style="color: #ff79c6;">string</span> <span style="color: #50fa7b;">TamAdGetir</span>();
+    <span style="color: #ff79c6;">bool</span> <span style="color: #50fa7b;">YetkiKontrol</span>(<span style="color: #ff79c6;">string</span> islemAdi);
+}
+</pre>
+        </div>
+        <p style="color: #888; font-size: 0.9em; margin-top: 10px;">📁 Dosya: Interfaces/IKullanici.cs</p>
+    </div>
+
+    <!-- Slide 8: Abstract Class Code -->
+    <div class="slide" id="slide8">
+        <h2>💻 KullaniciBase Abstract Sınıf</h2>
+        <div class="code-block" style="font-size: 0.9em;">
+            <pre style="margin: 0; color: #e6e6e6;">
+<span style="color: #6272a4;">// Abstract temel sınıf - IKullanici interface'ini implement eder</span>
+<span style="color: #ff79c6;">public abstract class</span> <span style="color: #8be9fd;">KullaniciBase</span> : <span style="color: #8be9fd;">IKullanici</span>
+{
+    <span style="color: #6272a4;">// Private Fields (Kapsülleme)</span>
+    <span style="color: #ff79c6;">private int</span> _id;
+    <span style="color: #ff79c6;">private string</span> _ad;
+    <span style="color: #ff79c6;">private string</span> _sifre;  <span style="color: #6272a4;">// Şifre korumalı!</span>
+    <span style="color: #ff79c6;">private</span> List&lt;<span style="color: #ff79c6;">string</span>&gt; _yetkiler;
+    
+    <span style="color: #6272a4;">// Abstract method - alt sınıflar override etmeli</span>
+    <span style="color: #ff79c6;">protected abstract void</span> <span style="color: #50fa7b;">YetkileriAyarla</span>();
+    <span style="color: #ff79c6;">public abstract string</span> <span style="color: #50fa7b;">AnaSayfaGetir</span>();
+    
+    <span style="color: #6272a4;">// Encapsulation örneği</span>
+    <span style="color: #ff79c6;">public int</span> Id {
+        <span style="color: #ff79c6;">get</span> { <span style="color: #ff79c6;">return</span> _id; }
+        <span style="color: #ff79c6;">set</span> { <span style="color: #ff79c6;">if</span> (value > 0) _id = value; }
+    }
+}
+</pre>
+        </div>
+        <p style="color: #888; font-size: 0.9em; margin-top: 10px;">📁 Dosya: Models/KullaniciBase.cs</p>
+    </div>
+
+    <!-- Slide 9: Inheritance Example -->
+    <div class="slide" id="slide9">
+        <h2>💻 VeterinerAdmin - Kalıtım Örneği</h2>
+        <div class="code-block" style="font-size: 0.9em;">
+            <pre style="margin: 0; color: #e6e6e6;">
+<span style="color: #6272a4;">// KullaniciBase'den türetilmiş sınıf</span>
+<span style="color: #ff79c6;">public class</span> <span style="color: #8be9fd;">VeterinerAdmin</span> : <span style="color: #8be9fd;">KullaniciBase</span>
+{
+    <span style="color: #ff79c6;">private string</span> _diplomaNo;
+    <span style="color: #ff79c6;">private string</span> _uzmanlikAlani;
+    
+    <span style="color: #6272a4;">// Override - Polymorphism</span>
+    <span style="color: #ff79c6;">public override</span> <span style="color: #8be9fd;">KullaniciRolu</span> Rol {
+        <span style="color: #ff79c6;">get</span> { <span style="color: #ff79c6;">return</span> KullaniciRolu.VeterinerAdmin; }
+    }
+    
+    <span style="color: #6272a4;">// Abstract method implementasyonu</span>
+    <span style="color: #ff79c6;">protected override void</span> <span style="color: #50fa7b;">YetkileriAyarla</span>() {
+        YetkiEkle(<span style="color: #f1fa8c;">"RANDEVU_ONAYLA"</span>);
+        YetkiEkle(<span style="color: #f1fa8c;">"MUAYENE_EKLE"</span>);
+        YetkiEkle(<span style="color: #f1fa8c;">"RAPOR_OLUSTUR"</span>);
+    }
+    
+    <span style="color: #ff79c6;">public override string</span> <span style="color: #50fa7b;">AnaSayfaGetir</span>() {
+        <span style="color: #ff79c6;">return</span> <span style="color: #f1fa8c;">"Form2"</span>; <span style="color: #6272a4;">// Admin Panel</span>
+    }
+}
+</pre>
+        </div>
+        <p style="color: #888; font-size: 0.9em; margin-top: 10px;">📁 Dosya: Models/VeterinerAdmin.cs</p>
+    </div>
+
+    <!-- Slide 10: Project Structure -->
+    <div class="slide" id="slide10">
+        <h2>📁 Proje Yapısı</h2>
+        <div class="two-column">
+            <div class="card">
+                <div class="tree-line" style="font-size: 1.1em;">
+                    📁 VeterinerProjectApp/<br>
+                    &nbsp;&nbsp;├── 📂 <span class="highlight">Models/</span> → 12 model<br>
+                    &nbsp;&nbsp;├── 📂 <span class="highlight">Services/</span> → 4 servis<br>
+                    &nbsp;&nbsp;├── 📂 <span class="highlight">Interfaces/</span> → 4 interface<br>
+                    &nbsp;&nbsp;├── 📂 <span class="highlight">Enums/</span> → 4 enum<br>
+                    &nbsp;&nbsp;├── 📄 FormLogin.cs<br>
+                    &nbsp;&nbsp;├── 📄 Form1-15.cs<br>
+                    &nbsp;&nbsp;└── 📄 Program.cs
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>Servisler</h3>
+                    <ul>
+                        <li>VeriYoneticisi (Singleton)</li>
+                        <li>OturumYoneticisi (Singleton)</li>
+                        <li>VeritabaniServisi</li>
+                        <li>BildirimServisi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Features -->
+    <div class="slide" id="slide11">
+        <h2>⚡ Temel Özellikler</h2>
+        <div class="two-column">
+            <div>
+                <div class="card">
+                    <p><span class="check">✅</span> Kullanıcı Giriş/Kayıt Sistemi</p>
+                </div>
+                <div class="card">
+                    <p><span class="check">✅</span> Rol Bazlı Yetkilendirme</p>
+                </div>
+                <div class="card">
+                    <p><span class="check">✅</span> Hayvan Kayıt (Evcil/Sokak)</p>
+                </div>
+                <div class="card">
+                    <p><span class="check">✅</span> Aşı ve Kısırlık Takibi</p>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <p><span class="check">✅</span> Randevu Sistemi (Geliş Sebebi)</p>
+                </div>
+                <div class="card">
+                    <p><span class="check">✅</span> Randevu Onay/Red Mekanizması</p>
+                </div>
+                <div class="card">
+                    <p><span class="check">✅</span> İşlem/Muayene Kaydı</p>
+                </div>
+                <div class="card">
+                    <p><span class="check">✅</span> Nöbetçi Klinik Arama</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Technologies -->
+    <div class="slide" id="slide12">
+        <h2>🛠️ Kullanılan Teknolojiler</h2>
+        <table>
+            <tr>
+                <th>Teknoloji</th>
+                <th>Kullanım Alanı</th>
+            </tr>
+            <tr>
+                <td>C#</td>
+                <td>Ana programlama dili</td>
+            </tr>
+            <tr>
+                <td>.NET 8</td>
+                <td>Framework</td>
+            </tr>
+            <tr>
+                <td>Windows Forms</td>
+                <td>Kullanıcı Arayüzü (UI)</td>
+            </tr>
+            <tr>
+                <td>JSON</td>
+                <td>Veri kaydetme/yükleme</td>
+            </tr>
+            <tr>
+                <td>SQLite</td>
+                <td>Veritabanı</td>
+            </tr>
+        </table>
+        <div class="card" style="margin-top: 30px;">
+            <h3>Design Patterns</h3>
+            <p><span class="highlight">Singleton:</span> VeriYoneticisi, OturumYoneticisi</p>
+        </div>
+    </div>
+
+    <!-- Slide 13: Conclusion -->
+    <div class="slide" id="slide13">
+        <div class="center">
+            <div class="big-emoji">🎉</div>
+            <h1>TEŞEKKÜRLER</h1>
+            <div style="margin-top: 40px;">
+                <div class="card" style="display: inline-block; text-align: left;">
+                    <p><span class="check">✅</span> Nesne Yönelimli Programlama</p>
+                    <p><span class="check">✅</span> Kalıtım ve Interface Kullanımı</p>
+                    <p><span class="check">✅</span> Windows Forms UI Geliştirme</p>
+                    <p><span class="check">✅</span> Veri Yönetimi (JSON/SQLite)</p>
+                    <p><span class="check">✅</span> Rol Bazlı Yetkilendirme</p>
+                </div>
+            </div>
+            <p style="margin-top: 50px; color: #888; font-size: 1.5em;">Sorularınız?</p>
+
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button onclick="prevSlide()">◀ Önceki</button>
+        <button onclick="nextSlide()">Sonraki ▶</button>
+    </div>
+
+    <div class="progress" id="progress"></div>
+    <div class="slide-number" id="slideNumber">1 / 13</div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 13;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(s => s.classList.remove('active'));
+
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+
+            document.getElementById('slide' + currentSlide).classList.add('active');
+            document.getElementById('slideNumber').textContent = currentSlide + ' / ' + totalSlides;
+            document.getElementById('progress').style.width = (currentSlide / totalSlides * 100) + '%';
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'f' || e.key === 'F') {
+                document.documentElement.requestFullscreen();
+            }
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+
+</body>
+
+</html>

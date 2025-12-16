@@ -128,7 +128,7 @@ namespace VeterinerProjectApp
             // Admin kullanıcı
             if (veriYoneticisi.Veterinerler.Count == 0)
             {
-                var admin = new VeterinerAdmin(1, "Dr. Ahmet", "Yılmaz", "admin@klinik.com", "0532 111 22 33", "admin123", "VET-001", "Genel Veterinerlik");
+                var admin = new VeterinerAdmin(1, "Ceyda", "Kerem", "ceydakerem@posta.com", "0532 111 22 33", "1234", "VET-001", "Genel Veterinerlik");
                 admin.KlinikAdi = "Patiler Veteriner Kliniği";
                 veriYoneticisi.VeterinerEkle(admin);
             }
@@ -196,7 +196,7 @@ namespace VeterinerProjectApp
                 }
             }
 
-            MessageBox.Show("E-posta veya şifre hatalı!\n\nDemo giriş bilgileri:\n• Admin: admin@klinik.com / admin123\n• Kullanıcı: ayse@email.com / user123\n• Sorumlu: mehmet@email.com / sorumlu123", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("E-posta veya şifre hatalı!\n\nDemo giriş bilgileri:\n• Admin: ceydakerem@posta.com / 1234\n• Kullanıcı: ayse@email.com / user123\n• Sorumlu: mehmet@email.com / sorumlu123", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void BtnDemo_Click(object sender, EventArgs e)

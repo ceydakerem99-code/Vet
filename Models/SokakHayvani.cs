@@ -255,6 +255,14 @@ namespace VeterinerProjectApp.Models
         }
 
         /// <summary>
+        /// Hayvanı kısırlaştırıldı olarak işaretler (parametresiz).
+        /// </summary>
+        public void Kisirlastir()
+        {
+            _kisirlastirildiMi = true;
+        }
+
+        /// <summary>
         /// Hayvanın bölgesini günceller.
         /// </summary>
         public void BolgeGuncelle(string yeniBolge, string yeniAdres)

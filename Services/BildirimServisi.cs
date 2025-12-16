@@ -67,7 +67,16 @@ namespace VeterinerProjectApp.Services
         }
 
         /// <summary>
-        /// Randevu onay bildirimi gönderir.
+        /// Randevu onay bildirimi gönderir (basit versiyon).
+        /// </summary>
+        public void RandevuOnayBildirimi(string telefon, DateTime randevuTarihi)
+        {
+            string smsMesaj = $"Randevunuz onaylanmıştır. Tarih: {randevuTarihi:dd.MM.yyyy}. Veteriner Klinik";
+            SmsGonder(telefon, smsMesaj);
+        }
+
+        /// <summary>
+        /// Randevu onay bildirimi gönderir (detaylı versiyon).
         /// </summary>
         public void RandevuOnayBildirimi(string telefon, string email, DateTime randevuTarihi, string hayvanAdi)
         {

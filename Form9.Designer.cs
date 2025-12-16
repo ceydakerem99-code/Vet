@@ -72,9 +72,9 @@
             // checkedListBox1
             // 
             checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(827, 292);
+            checkedListBox1.Location = new Point(550, 292);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(263, 334);
+            checkedListBox1.Size = new Size(550, 334);
             checkedListBox1.TabIndex = 22;
             // 
             // Form9

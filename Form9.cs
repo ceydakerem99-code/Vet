@@ -37,10 +37,17 @@ namespace VeterinerProjectApp
             foreach (var randevu in veriYoneticisi.BekleyenRandevular())
             {
                 string bilgi = $"Randevu #{randevu.Id} - {randevu.RandevuTarihi:dd.MM.yyyy} {randevu.RandevuSaati:hh\\:mm}";
-                if (!string.IsNullOrEmpty(randevu.Sikayet))
+                
+                // Geliş sebebini göster
+                if (!string.IsNullOrEmpty(randevu.RandevuNedeni))
                 {
-                    bilgi += $" - {randevu.Sikayet}";
+                    bilgi += $" | Sebep: {randevu.RandevuNedeni}";
                 }
+                else if (!string.IsNullOrEmpty(randevu.Sikayet))
+                {
+                    bilgi += $" | Sebep: {randevu.Sikayet}";
+                }
+                
                 checkedListBox1.Items.Add(bilgi);
             }
             
@@ -79,13 +86,17 @@ namespace VeterinerProjectApp
                             {
                                 randevu.Onayla(1); // Admin ID: 1
                                 onaylanan++;
+                                
+                                // Kullanıcıya bildirim gönder
+                                var bildirim = BildirimServisi.Instance;
+                                bildirim.RandevuOnayBildirimi($"+90532{randevu.KullaniciId}000000", randevu.RandevuTarihi);
                             }
                         }
                     }
                 }
             }
 
-            MessageBox.Show($"{onaylanan} randevu onaylandı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{onaylanan} randevu onaylandı.\nKullanıcılara bildirim gönderildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             BekleyenOnaylariYukle();
         }
 

@@ -55,13 +55,7 @@ namespace VeterinerProjectApp.Models
         public DateTime RandevuTarihi
         {
             get { return _randevuTarihi; }
-            set
-            {
-                if (value.Date >= DateTime.Now.Date)
-                    _randevuTarihi = value.Date;
-                else
-                    throw new ArgumentException("Randevu tarihi geçmiş bir tarih olamaz.");
-            }
+            set { _randevuTarihi = value.Date; }
         }
 
         public TimeSpan RandevuSaati
@@ -93,6 +87,11 @@ namespace VeterinerProjectApp.Models
             get { return _iptalNedeni; }
             set { _iptalNedeni = value ?? ""; }
         }
+
+        /// <summary>
+        /// Randevunun nedeni/amacı
+        /// </summary>
+        public string RandevuNedeni { get; set; } = "Genel Kontrol";
 
         public DateTime OlusturmaTarihi
         {

@@ -20,7 +20,7 @@ namespace VeterinerProjectApp
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            // İşlem Kayıt butonu ekle - SOL ÜST, KIRMIZI
+            // İşlem kayıt butonu ekle 
             Button btnIslemKayit = new Button();
             btnIslemKayit.Text = "🩺 İşlem Kayıt";
             btnIslemKayit.Location = new Point(20, 20);
@@ -37,7 +37,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnIslemKayit);
 
-            // Hasta Görüntüle butonu ekle - SOL ÜST, BEYAZ
+            // Hasta görüntüle butonu ekle 
             Button btnHastaGoruntule = new Button();
             btnHastaGoruntule.Text = "👁️ Hasta Görüntüle";
             btnHastaGoruntule.Location = new Point(170, 20);
@@ -54,7 +54,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnHastaGoruntule);
 
-            // Şikayetler butonu ekle - TURUNCU
+            // Şikayetler butonu ekle 
             Button btnSikayetler = new Button();
             btnSikayetler.Text = "📋 Şikayetler";
             btnSikayetler.Location = new Point(330, 20);

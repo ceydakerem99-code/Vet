@@ -22,7 +22,7 @@ namespace VeterinerProjectApp
 
         private void Form7_Load(object sender, EventArgs e)
         {
-            // Şikayet/Öneri konularını doldur
+            // Şikayet/Öneri konuları
             comboBox1.Items.Clear();
             comboBox1.Items.Add("Randevu Sistemi");
             comboBox1.Items.Add("Muayene Hizmetleri");
@@ -44,7 +44,7 @@ namespace VeterinerProjectApp
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            // Gönder butonu
+            // Gönder 
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
                 MessageBox.Show("Lütfen mesajınızı yazın.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);

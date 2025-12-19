@@ -9,7 +9,7 @@ namespace VeterinerProjectApp
 {
     /// <summary>
     /// Sadece sokak hayvanlarını görüntüleyen form
-    /// Patili Koruyucu (Sokak Hayvanı Sorumlusu) için özel
+    /// Patili Koruyucu için özel
     /// </summary>
     public partial class FormHastaGoruntuleSokak : Form
     {
@@ -115,13 +115,13 @@ namespace VeterinerProjectApp
             var oturum = OturumYoneticisi.Instance;
             cmbHayvanlar.Items.Clear();
 
-            // SADECE sokak hayvanlarını göster
+            // sadece sokak hayvanlarını göster
             int sorumluId = oturum.AktifKullanici?.Id ?? 0;
             
-            // Admin veya sorumlu ise ilgili sokak hayvanlarını göster
+            // admin veya sorumlu ise ilgili sokak hayvanlarını göster
             if (oturum.VeterinerAdminMi())
             {
-                // Admin tüm sokak hayvanlarını görür
+                // admin tüm sokak hayvanlarını görür
                 foreach (var h in veri.SokakHayvanlari)
                 {
                     cmbHayvanlar.Items.Add(new SokakHayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Bölge: {h.BulunduguBolge}"));
@@ -129,7 +129,7 @@ namespace VeterinerProjectApp
             }
             else
             {
-                // Sorumlu sadece getirdiği veya sahipsiz sokak hayvanlarını görür
+                // sorumlu sadece getirdiği veya sahipsiz sokak hayvanlarını görür
                 foreach (var h in veri.SokakHayvanlari.Where(x => x.SorumluId == sorumluId || x.SorumluId == 0))
                 {
                     cmbHayvanlar.Items.Add(new SokakHayvanItem(h.Id, $"{h.Ad} ({h.Tur}) - Bölge: {h.BulunduguBolge}"));

@@ -52,7 +52,7 @@ namespace VeterinerProjectApp
             comboBox1.Items.Add("İzmir");
             comboBox1.Items.Add("Bursa");
             comboBox1.Items.Add("Antalya");
-            comboBox1.Items.Add("Konya");
+            comboBox1.Items.Add("Çorum");
             comboBox1.SelectedIndex = 0;
         }
 
@@ -78,7 +78,7 @@ namespace VeterinerProjectApp
                 case "Antalya":
                     comboBox2.Items.AddRange(new[] { "Merkez", "Sahil" });
                     break;
-                case "Konya":
+                case "Çorum":
                     comboBox2.Items.AddRange(new[] { "Merkez" });
                     break;
             }
@@ -123,8 +123,8 @@ namespace VeterinerProjectApp
                 new NobetciKlinik("Akdeniz Acil Veteriner", "Antalya", "Merkez", "0242 777 66 55", "Muratpaşa Mah. Gece Yardım No:5", true,
                     new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday }),
                 
-                // Konya - Her gün
-                new NobetciKlinik("Konya Nöbetçi Klinik", "Konya", "Merkez", "0332 888 77 66", "Selçuklu Mah. 7/24 Sok. No:12", true,
+                // Çorum - Her gün
+                new NobetciKlinik("Çorum Nöbetçi Klinik", "Çorum", "Merkez", "0364 888 77 66", "Mimar Sinan Mah. Atatürk Cad. No:12", true,
                     new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday })
             };
         }

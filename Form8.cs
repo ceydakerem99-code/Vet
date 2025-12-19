@@ -34,7 +34,7 @@ namespace VeterinerProjectApp
             int gunlukSayi = veriYoneticisi.GunlukMuayeneSayisi(DateTime.Now);
             textBox3.Text = gunlukSayi.ToString();
             
-            // Aylık muayeneler (son 30 gün)
+            // Aylık muayeneler 
             int aylikSayi = 0;
             for (int i = 0; i < 30; i++)
             {

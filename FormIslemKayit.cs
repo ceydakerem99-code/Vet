@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace VeterinerProjectApp
 {
     /// <summary>
-    /// Doktor/Admin için işlem kayıt formu
+    /// admin için işlem kayıt formu
     /// </summary>
     public partial class FormIslemKayit : Form
     {
@@ -110,7 +110,7 @@ namespace VeterinerProjectApp
             txtUcret.Text = "0";
             this.Controls.Add(txtUcret);
 
-            // Kısırlık ve Aşı Checkbox'ları - Doktor Düzenleyebilir
+            // Kısırlık ve aşı Checkbox ları - admin düzenleyebilir
             y += 50;
             chkKisir = new CheckBox();
             chkKisir.Text = "Kısırlaştırıldı";
@@ -140,7 +140,7 @@ namespace VeterinerProjectApp
             btnKaydet.Click += BtnKaydet_Click;
             this.Controls.Add(btnKaydet);
 
-            // Ana Sayfa butonu
+            // Ana sayfa butonu
             btnAnaSayfa = new Button();
             btnAnaSayfa.Text = "Ana Sayfa";
             btnAnaSayfa.Location = new Point(inputX + 220, y + 60);
@@ -171,12 +171,12 @@ namespace VeterinerProjectApp
 
         private void FormIslemKayit_Load(object sender, EventArgs e)
         {
-            // Oturum kontrolü - kullanıcı kayıtlı mı?
+            // oturum kontrolü , kullanıcı kayıtlı mı?
             var oturum = OturumYoneticisi.Instance;
             
             if (!oturum.OturumAktifMi || oturum.AktifKullanici == null)
             {
-                // Kullanıcı giriş yapmamış
+                // kullanıcı giriş yapmamış
                 var result = MessageBox.Show(
                     "⚠️ İşlem kaydı için giriş yapmanız gerekmektedir!\n\n" +
                     "Hesabınız var mı?\n" +
@@ -285,7 +285,7 @@ namespace VeterinerProjectApp
 
             veri.MuayeneEkle(muayene);
 
-            // Hayvan bilgilerini güncelle (kısırlık, aşı)
+            // hayvan bilgilerini güncelle (kısırlık, aşı)
             if (secim.Contains("[Evcil]"))
             {
                 var hayvan = veri.EvcilHayvanlar.FirstOrDefault(h => h.Id == hayvanId);

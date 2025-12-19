@@ -31,7 +31,7 @@ namespace VeterinerProjectApp
             dateTimePicker1.MinDate = DateTime.Now;
             dateTimePicker1.Value = DateTime.Now.AddDays(1);
 
-            // Geliş Sebebi Label - Ad alanının üstüne
+            
             lblGelisSebebi = new Label();
             lblGelisSebebi.Text = "Geliş Sebebi:";
             lblGelisSebebi.Location = new Point(700, 175);
@@ -40,7 +40,7 @@ namespace VeterinerProjectApp
             lblGelisSebebi.BackColor = Color.Transparent;
             this.Controls.Add(lblGelisSebebi);
 
-            // Geliş Sebebi ComboBox
+           
             cmbGelisSebebi = new ComboBox();
             cmbGelisSebebi.Location = new Point(870, 172);
             cmbGelisSebebi.Size = new Size(300, 30);
@@ -59,7 +59,7 @@ namespace VeterinerProjectApp
             cmbGelisSebebi.SelectedIndex = 0;
             this.Controls.Add(cmbGelisSebebi);
 
-            // Kısırlık CheckBox ekle
+        
             chkKisir = new CheckBox();
             chkKisir.Text = "Kısırlaştırıldı mı?";
             chkKisir.Location = new Point(720, 480);
@@ -68,7 +68,7 @@ namespace VeterinerProjectApp
             chkKisir.BackColor = Color.Transparent;
             this.Controls.Add(chkKisir);
 
-            // Aşılar CheckBox ekle
+        
             chkAsiTam = new CheckBox();
             chkAsiTam.Text = "Aşıları tam mı?";
             chkAsiTam.Location = new Point(920, 480);
@@ -98,7 +98,7 @@ namespace VeterinerProjectApp
             var veriYoneticisi = VeriYoneticisi.Instance;
             var oturum = OturumYoneticisi.Instance;
             
-            // Önce hayvanı kaydet
+            // hayvanı kaydet
             int hayvanId = veriYoneticisi.YeniHayvanId();
             var hayvan = new EvcilHayvan();
             hayvan.Id = hayvanId;

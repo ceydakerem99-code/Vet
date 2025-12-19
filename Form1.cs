@@ -14,13 +14,11 @@ namespace VeterinerProjectApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Üst menü butonlarını ekle
             UstMenuButonlariEkle();
             
-            // Veritabanını başlat
+
             var db = VeritabaniServisi.Instance;
-            
-            // Giriş durumunu kontrol et
+    
             var oturum = OturumYoneticisi.Instance;
             if (oturum.OturumAktifMi && oturum.AktifKullanici != null)
             {
@@ -36,7 +34,7 @@ namespace VeterinerProjectApp
             int buttonHeight = 35;
             int spacing = 10;
 
-            // Arama butonu
+        
             Button btnArama = new Button();
             btnArama.Text = "🔍 Arama";
             btnArama.Location = new System.Drawing.Point(startX, y);
@@ -52,7 +50,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnArama);
 
-            // Bildirimler butonu
+            // Bildirimler
             Button btnBildirim = new Button();
             btnBildirim.Text = "🔔 Bildirim";
             btnBildirim.Location = new System.Drawing.Point(startX + (buttonWidth + spacing) * 1, y);
@@ -68,7 +66,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnBildirim);
 
-            // Rapor butonu
+            // Rapor
             Button btnRapor = new Button();
             btnRapor.Text = "📊 Rapor";
             btnRapor.Location = new System.Drawing.Point(startX + (buttonWidth + spacing) * 2, y);
@@ -84,7 +82,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnRapor);
 
-            // Veritabanı butonu
+            // Veritabanı 
             Button btnVeritabani = new Button();
             btnVeritabani.Text = "💾 Kaydet";
             btnVeritabani.Location = new System.Drawing.Point(startX + (buttonWidth + spacing) * 3, y);
@@ -97,7 +95,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnVeritabani);
 
-            // Çıkış butonu
+            // Çıkış 
             Button btnCikis = new Button();
             btnCikis.Text = "🚪 Çıkış";
             btnCikis.Location = new System.Drawing.Point(startX + (buttonWidth + spacing) * 4, y);
@@ -124,14 +122,14 @@ namespace VeterinerProjectApp
                 
                 int kayitSayisi = 0;
                 
-                // Hayvanları kaydet
+                // Hayvan ksyıt
                 foreach (var hayvan in veriYoneticisi.EvcilHayvanlar)
                 {
                     dbServisi.HayvanKaydet(hayvan);
                     kayitSayisi++;
                 }
                 
-                // Randevuları kaydet
+                // Randevu kayıt
                 foreach (var randevu in veriYoneticisi.Randevular)
                 {
                     dbServisi.RandevuKaydet(randevu);

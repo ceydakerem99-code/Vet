@@ -25,7 +25,7 @@ namespace VeterinerProjectApp
 
         private void Form9_Load(object sender, EventArgs e)
         {
-            // Bekleyen onayları yükle
+           
             BekleyenOnaylariYukle();
         }
 
@@ -38,7 +38,7 @@ namespace VeterinerProjectApp
             {
                 string bilgi = $"Randevu #{randevu.Id} - {randevu.RandevuTarihi:dd.MM.yyyy} {randevu.RandevuSaati:hh\\:mm}";
                 
-                // Geliş sebebini göster
+                // Geliş sebebi
                 if (!string.IsNullOrEmpty(randevu.RandevuNedeni))
                 {
                     bilgi += $" | Sebep: {randevu.RandevuNedeni}";
@@ -59,7 +59,7 @@ namespace VeterinerProjectApp
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            // Onayla butonu
+            // Onayla buton
             if (checkedListBox1.CheckedItems.Count == 0)
             {
                 MessageBox.Show("Lütfen onaylamak istediğiniz randevuları seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);

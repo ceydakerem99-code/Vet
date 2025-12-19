@@ -89,7 +89,7 @@ namespace VeterinerProjectApp
                 lstBildirimler.Items.Add("");
             }
             
-            // Yaklaşan randevular (3 gün içinde)
+            // Yaklaşan randevular 
             lstBildirimler.Items.Add("📆 YAKLAŞAN RANDEVULAR (3 gün içinde)");
             lstBildirimler.Items.Add("───────────────────────────────────────────────────────────────");
             int yaklasanSayisi = 0;

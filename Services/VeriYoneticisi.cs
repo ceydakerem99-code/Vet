@@ -7,8 +7,8 @@ using VeterinerProjectApp.Models;
 namespace VeterinerProjectApp.Services
 {
     /// <summary>
-    /// Veri yönetimi servisi - Singleton Pattern kullanır.
-    /// JSON dosyalarına veri kaydetme/okuma işlemleri yapar.
+    /// Veri yönetimi servisi - Singleton Pattern kullandık.
+    /// JSON dosyalarına veri kaydetme/okuma işlemleri yaptık.
     /// </summary>
     public class VeriYoneticisi
     {
@@ -30,7 +30,7 @@ namespace VeterinerProjectApp.Services
         private int _sonRandevuId = 0;
         private int _sonMuayeneId = 0;
 
-        // Singleton Instance
+        
         public static VeriYoneticisi Instance
         {
             get
@@ -49,7 +49,7 @@ namespace VeterinerProjectApp.Services
             }
         }
 
-        // Private constructor
+        // private constructor kullandık
         private VeriYoneticisi()
         {
             _veriKlasoru = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Veriler");
@@ -66,7 +66,7 @@ namespace VeterinerProjectApp.Services
             _randevular = new List<Randevu>();
             _muayeneler = new List<Muayene>();
             
-            // Uygulama başladığında kayıtlı verileri yükle
+            // uygulama başladığında kayıtlı verileri yükle program kapandığında veri kaybı olmasın
             VerileriYukle();
         }
 
@@ -107,7 +107,7 @@ namespace VeterinerProjectApp.Services
             if (hayvan != null && !_sokakHayvanlari.Contains(hayvan))
             {
                 _sokakHayvanlari.Add(hayvan);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet(); // otomatik kaydet
             }
         }
 
@@ -131,7 +131,7 @@ namespace VeterinerProjectApp.Services
             if (hayvan != null)
             {
                 var result = _evcilHayvanlar.Remove(hayvan);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet(); // otomatik kaydet
                 return result;
             }
             return false;
@@ -146,7 +146,7 @@ namespace VeterinerProjectApp.Services
             if (veteriner != null)
             {
                 _veterinerler.Add(veteriner);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet(); 
             }
         }
 
@@ -155,7 +155,7 @@ namespace VeterinerProjectApp.Services
             if (sahip != null)
             {
                 _hayvanSahipleri.Add(sahip);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet(); 
             }
         }
 
@@ -164,7 +164,7 @@ namespace VeterinerProjectApp.Services
             if (sorumlu != null)
             {
                 _sorumlular.Add(sorumlu);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet();
             }
         }
 
@@ -177,7 +177,7 @@ namespace VeterinerProjectApp.Services
             if (randevu != null)
             {
                 _randevular.Add(randevu);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet();
             }
         }
 
@@ -206,7 +206,7 @@ namespace VeterinerProjectApp.Services
             if (muayene != null)
             {
                 _muayeneler.Add(muayene);
-                VerileriKaydet(); // Otomatik kaydet
+                VerileriKaydet(); 
             }
         }
 
@@ -231,7 +231,7 @@ namespace VeterinerProjectApp.Services
         #region Veri Kaydetme/Yükleme
 
         /// <summary>
-        /// Tüm verileri JSON dosyasına kaydeder
+        /// Tüm verileri JSON dosyasına kaydet
         /// </summary>
         public void VerileriKaydet()
         {

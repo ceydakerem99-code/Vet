@@ -10,9 +10,9 @@ namespace VeterinerProjectApp
 {
     /// <summary>
     /// Rol bazlı hasta görüntüleme formu
-    /// Admin: Tüm hayvanları ve işlemleri görür
-    /// Hayvan Sahibi: Sadece kendi hayvanlarını görür
-    /// Sokak Hayvanı Sorumlusu: Getirdiği hayvanları görür
+    /// Admin tüm hayvanları ve işlemleri görür
+    /// Hayvan sahibi sadece kendi hayvanlarını görür
+    /// Sokak hayvanı sorumlusu getirdiği hayvanları görür
     /// </summary>
     public partial class FormHastaGoruntule : Form
     {
@@ -92,7 +92,7 @@ namespace VeterinerProjectApp
             lstIslemler.Font = new Font("Consolas", 9);
             this.Controls.Add(lstIslemler);
 
-            // Ana Sayfa butonu
+            // Ana Sayfa 
             btnAnaSayfa = new Button();
             btnAnaSayfa.Text = "Ana Sayfa";
             btnAnaSayfa.Location = new Point(30, 600);

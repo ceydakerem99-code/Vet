@@ -48,7 +48,7 @@ namespace VeterinerProjectApp
                 rapor.AppendLine();
             }
             
-            if (checkBox2.Checked) // Toplam Hasta Sayısı
+            if (checkBox2.Checked) // Toplam hasta sayisi
             {
                 rapor.AppendLine("─── HASTA SAYILARI ───");
                 rapor.AppendLine($"Toplam Evcil Hayvan: {veriYoneticisi.EvcilHayvanlar.Count}");
@@ -58,7 +58,7 @@ namespace VeterinerProjectApp
                 rapor.AppendLine();
             }
             
-            if (checkBox3.Checked) // Randevu Bilgileri
+            if (checkBox3.Checked) // Randevu bilgileri
             {
                 rapor.AppendLine("─── RANDEVU BİLGİLERİ ───");
                 rapor.AppendLine($"Toplam Randevu: {veriYoneticisi.Randevular.Count}");

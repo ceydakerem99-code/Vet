@@ -35,7 +35,7 @@ namespace VeterinerProjectApp
             comboBox1.Items.Add("İzmir");
             comboBox1.Items.Add("Bursa");
             comboBox1.Items.Add("Antalya");
-            comboBox1.Items.Add("Konya");
+            comboBox1.Items.Add("Çorum");
             comboBox1.SelectedIndex = 0;
         }
 
@@ -61,8 +61,8 @@ namespace VeterinerProjectApp
                 case "Antalya":
                     comboBox2.Items.AddRange(new[] { "Muratpaşa", "Kepez", "Konyaaltı", "Lara" });
                     break;
-                case "Konya":
-                    comboBox2.Items.AddRange(new[] { "Selçuklu", "Meram", "Karatay" });
+                case "Çorum":
+                    comboBox2.Items.AddRange(new[] { "Sungurlu", "Alaca", "Merkez" });
                     break;
             }
             
@@ -85,7 +85,7 @@ namespace VeterinerProjectApp
                 new Klinik("Karşıyaka Pet", "İzmir", "Karşıyaka", "0232 456 56 78", "Bostanlı Mah. Cemal Gürsel Cad. No:15"),
                 new Klinik("Yeşil Patiler", "Bursa", "Nilüfer", "0224 234 67 89", "Özlüce Mah. Prof. Dr. Turgut Noyan Sok. No:5"),
                 new Klinik("Akdeniz Veteriner", "Antalya", "Muratpaşa", "0242 345 78 90", "Güllük Mah. Atatürk Cad. No:78"),
-                new Klinik("Konya Pet Kliniği", "Konya", "Selçuklu", "0332 234 89 01", "Yazır Mah. Yeni İstanbul Cad. No:44")
+                new Klinik("Çorum Pet Kliniği", "Çorum", "Merkez", "0364 234 89 01", "Mimar Sinan Mah. Atatürk Cad. No:44")
             };
         }
 
@@ -141,7 +141,7 @@ namespace VeterinerProjectApp
             yeniForm.FormClosed += (s, args) => this.Close();
         }
         
-        // İç sınıf - Klinik bilgileri
+        // Klinik bilgileri
         private class Klinik
         {
             public string Ad { get; set; }

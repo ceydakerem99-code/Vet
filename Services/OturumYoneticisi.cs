@@ -104,7 +104,7 @@ namespace VeterinerProjectApp.Services
             _oturumAktifMi = true;
         }
 
-        #endregion
+        
 
         #region Yetki Kontrolleri
 
@@ -171,16 +171,6 @@ namespace VeterinerProjectApp.Services
         #region Yardımcı Metotlar
 
         /// <summary>
-        /// Oturum süresini dakika olarak döndürür.
-        /// </summary>
-        public int OturumSuresiDakika()
-        {
-            if (!_oturumAktifMi || !_girisZamani.HasValue)
-                return 0;
-            return (int)(DateTime.Now - _girisZamani.Value).TotalMinutes;
-        }
-
-        /// <summary>
         /// Aktif kullanıcının ana sayfasını döndürür.
         /// </summary>
         public string AnaSayfaGetir()
@@ -190,6 +180,6 @@ namespace VeterinerProjectApp.Services
             return "Form1";
         }
 
-        #endregion
+        #endregion // kod karmaşasını engellemek için
     }
 }

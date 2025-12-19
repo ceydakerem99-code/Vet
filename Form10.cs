@@ -32,9 +32,9 @@ namespace VeterinerProjectApp
             listBox1.Items.Clear();
             var veriYoneticisi = VeriYoneticisi.Instance;
             
-            listBox1.Items.Add("═══════════════════════════════════════");
+            listBox1.Items.Add("══════════════════════════════════════");
             listBox1.Items.Add("         KAYITLI HAYVAN SAHİPLERİ       ");
-            listBox1.Items.Add("═══════════════════════════════════════");
+            listBox1.Items.Add("══════════════════════════════════════");
             
             if (veriYoneticisi.HayvanSahipleri.Count == 0)
             {

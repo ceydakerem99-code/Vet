@@ -48,27 +48,27 @@ namespace VeterinerProjectApp
             int startY = 70;
             int spacing = 55;
 
-            // Ad
+            
             AddLabel("Ad:", labelX, startY);
             txtAd = AddTextBox(inputX, startY + 22, inputWidth);
 
-            // Soyad
+            
             AddLabel("Soyad:", labelX, startY + spacing);
             txtSoyad = AddTextBox(inputX, startY + spacing + 22, inputWidth);
 
-            // E-posta
+            
             AddLabel("E-posta:", labelX, startY + spacing * 2);
             txtEmail = AddTextBox(inputX, startY + spacing * 2 + 22, inputWidth);
 
-            // Telefon
+            
             AddLabel("Telefon:", labelX, startY + spacing * 3);
             txtTelefon = AddTextBox(inputX, startY + spacing * 3 + 22, inputWidth);
 
-            // Şifre
+            
             AddLabel("Şifre:", labelX, startY + spacing * 4);
             txtSifre = AddTextBox(inputX, startY + spacing * 4 + 22, inputWidth, true);
 
-            // Şifre Tekrar
+            
             AddLabel("Şifre Tekrar:", labelX, startY + spacing * 5);
             txtSifreTekrar = AddTextBox(inputX, startY + spacing * 5 + 22, inputWidth, true);
 
@@ -193,7 +193,7 @@ namespace VeterinerProjectApp
                     );
                     veriYoneticisi.HayvanSahibiEkle(yeniKullanici);
                 }
-                else // Patili Koruyucu
+                else // patili koruyucu
                 {
                     int yeniId = veriYoneticisi.Sorumlular.Count + veriYoneticisi.HayvanSahipleri.Count + 10;
                     var yeniSorumlu = new SokakHayvaniSorumlusu(

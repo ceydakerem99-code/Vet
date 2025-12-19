@@ -71,7 +71,7 @@ namespace VeterinerProjectApp
             }
             else
             {
-                // Demo veri göster
+                // Varsayılan değerler göster
                 textBox1.Text = "Boncuk";
                 textBox2.Text = "Kedi - Tekir";
                 textBox3.Text = "3";

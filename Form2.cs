@@ -37,7 +37,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnIslemKayit);
 
-            // Hasta görüntüle butonu ekle 
+            // Hasta görüntüle butonu
             Button btnHastaGoruntule = new Button();
             btnHastaGoruntule.Text = "👁️ Hasta Görüntüle";
             btnHastaGoruntule.Location = new Point(170, 20);
@@ -54,7 +54,7 @@ namespace VeterinerProjectApp
             };
             this.Controls.Add(btnHastaGoruntule);
 
-            // Şikayetler butonu ekle 
+            // Şikayetler butonu
             Button btnSikayetler = new Button();
             btnSikayetler.Text = "📋 Şikayetler";
             btnSikayetler.Location = new Point(330, 20);

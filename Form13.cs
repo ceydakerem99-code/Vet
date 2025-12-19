@@ -120,7 +120,7 @@ namespace VeterinerProjectApp
             else
             {
                 hayvan.SahipId = 1;
-                hayvan.SahipAdi = "Demo Kullanıcı";
+                hayvan.SahipAdi = "Bilinmiyor";
             }
             
             hayvan.SaglikDurumu = "Bilinmiyor";

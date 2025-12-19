@@ -82,23 +82,11 @@ namespace VeterinerProjectApp
             btnLogin.Click += BtnLogin_Click;
             this.Controls.Add(btnLogin);
 
-            // Demo butonu
-            btnDemo = new Button();
-            btnDemo.Text = "Demo Modu";
-            btnDemo.Location = new Point(470, 490);
-            btnDemo.Size = new Size(220, 45);
-            btnDemo.BackColor = Color.LightGray;
-            btnDemo.FlatStyle = FlatStyle.Flat;
-            btnDemo.Font = new Font("Segoe UI", 11);
-            btnDemo.Cursor = Cursors.Hand;
-            btnDemo.Click += BtnDemo_Click;
-            this.Controls.Add(btnDemo);
-
             // Kayıt Ol butonu
             Button btnKayitOl = new Button();
             btnKayitOl.Text = "Kayıt Ol";
-            btnKayitOl.Location = new Point(700, 490);
-            btnKayitOl.Size = new Size(220, 45);
+            btnKayitOl.Location = new Point(470, 490);
+            btnKayitOl.Size = new Size(450, 45);
             btnKayitOl.BackColor = Color.FromArgb(100, 200, 100);
             btnKayitOl.ForeColor = Color.White;
             btnKayitOl.FlatStyle = FlatStyle.Flat;
@@ -111,43 +99,13 @@ namespace VeterinerProjectApp
                 kayitForm.FormClosed += (s2, e2) => this.Close();
             };
             this.Controls.Add(btnKayitOl);
-
-            // Demo kullanıcıları oluştur
-            DemoKullanicilariOlustur();
         }
 
         private TextBox txtEmail;
         private TextBox txtPassword;
         private Button btnLogin;
-        private Button btnDemo;
 
-        private void DemoKullanicilariOlustur()
-        {
-            var veriYoneticisi = VeriYoneticisi.Instance;
-            
-            // Admin kullanıcı
-            if (veriYoneticisi.Veterinerler.Count == 0)
-            {
-                var admin = new VeterinerAdmin(1, "Ceyda", "Kerem", "ceydakerem@posta.com", "0532 111 22 33", "1234", "VET-001", "Genel Veterinerlik");
-                admin.KlinikAdi = "Patiler Veteriner Kliniği";
-                veriYoneticisi.VeterinerEkle(admin);
-            }
-            
-            // Normal kullanıcı
-            if (veriYoneticisi.HayvanSahipleri.Count == 0)
-            {
-                var sahip = new HayvanSahibi(2, "Ayşe", "Kaya", "ayse@email.com", "0533 222 33 44", "user123");
-                sahip.Adres = "İstanbul / Kadıköy";
-                veriYoneticisi.HayvanSahibiEkle(sahip);
-            }
-            
-            // Sokak hayvanı sorumlusu
-            if (veriYoneticisi.Sorumlular.Count == 0)
-            {
-                var sorumlu = new SokakHayvaniSorumlusu(3, "Mehmet", "Demir", "mehmet@email.com", "0534 333 44 55", "sorumlu123", "Kadıköy Bölgesi");
-                veriYoneticisi.SorumluEkle(sorumlu);
-            }
-        }
+
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
@@ -196,22 +154,10 @@ namespace VeterinerProjectApp
                 }
             }
 
-            MessageBox.Show("E-posta veya şifre hatalı!\n\nDemo giriş bilgileri:\n• Admin: ceydakerem@posta.com / 1234\n• Kullanıcı: ayse@email.com / user123\n• Sorumlu: mehmet@email.com / sorumlu123", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("E-posta veya şifre hatalı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void BtnDemo_Click(object sender, EventArgs e)
-        {
-            var veriYoneticisi = VeriYoneticisi.Instance;
-            var oturumYoneticisi = OturumYoneticisi.Instance;
-            
-            // Demo modunda admin olarak giriş yap
-            if (veriYoneticisi.Veterinerler.Count > 0)
-            {
-                oturumYoneticisi.DemoGiris(veriYoneticisi.Veterinerler[0]);
-            }
-            
-            AnaFormAc();
-        }
+
 
         private void AnaFormAc()
         {

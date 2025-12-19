@@ -141,12 +141,12 @@ namespace VeterinerProjectApp
             listBox2.Items.Clear();
             listBox3.Items.Clear();
             
-            // İl, bölge ve GÜN'e göre nöbetçi kliniği bul
+            // il bölge ve gun'e göre nöbetçi kliniği bul
             var bulunanKlinikler = nobetciKlinikler
                 .Where(k => k.Il == secilenIl && k.Bolge == secilenBolge && k.AcikMi && k.NobetGunleri.Contains(secilenGun))
                 .ToList();
             
-            // Bölge bulunamazsa sadece il ve güne göre ara
+            // bölge bulunamazsa sadece il ve gun'e göre ara
             if (bulunanKlinikler.Count == 0)
             {
                 bulunanKlinikler = nobetciKlinikler.Where(k => k.Il == secilenIl && k.AcikMi && k.NobetGunleri.Contains(secilenGun)).ToList();
@@ -210,7 +210,7 @@ namespace VeterinerProjectApp
             yeniForm.FormClosed += (s, args) => this.Close();
         }
         
-        // İç sınıf - Nöbetçi Klinik bilgileri
+        // nöbetçi klinik bilgileri
         private class NobetciKlinik
         {
             public string Ad { get; set; }

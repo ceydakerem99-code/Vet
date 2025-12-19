@@ -94,17 +94,8 @@ namespace VeterinerProjectApp.Services
             _oturumAktifMi = false;
         }
 
-        /// <summary>
-        /// Demo modunda giriş yapar (şifresiz).
-        /// </summary>
-        public void DemoGiris(KullaniciBase kullanici)
-        {
-            _aktifKullanici = kullanici;
-            _girisZamani = DateTime.Now;
-            _oturumAktifMi = true;
-        }
 
-        
+        #endregion
 
         #region Yetki Kontrolleri
 

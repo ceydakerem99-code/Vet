@@ -35,7 +35,7 @@ namespace VeterinerProjectApp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // Patili Koruyucu için sadece sokak hayvanlarını göster
+            // patili koruyucu için sadece sokak hayvanlarını göster
             FormHastaGoruntuleSokak yeniForm = new FormHastaGoruntuleSokak();
             this.Hide();
             yeniForm.Show();

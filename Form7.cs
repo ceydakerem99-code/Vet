@@ -22,7 +22,7 @@ namespace VeterinerProjectApp
 
         private void Form7_Load(object sender, EventArgs e)
         {
-            // Şikayet/Öneri konuları
+            // Şikayet/öneri konuları
             comboBox1.Items.Clear();
             comboBox1.Items.Add("Randevu Sistemi");
             comboBox1.Items.Add("Muayene Hizmetleri");

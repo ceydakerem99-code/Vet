@@ -69,7 +69,7 @@ namespace VeterinerProjectApp
             }
             else
             {
-                // Demo veri
+                // Varsayılan değerler
                 textBox2.Text = "Köpek - Melez";
                 textBox3.Text = "2";
                 textBox4.Text = "SK-001";

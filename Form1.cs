@@ -182,7 +182,7 @@ namespace VeterinerProjectApp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // Sadece Admin veya Sokak Hayvanı Sorumlusu erişebilir
+            // sadece admin veya sokak hayvanı sorumlusu erişebilir
             var oturum = OturumYoneticisi.Instance;
             if (!oturum.VeterinerAdminMi() && !oturum.SokakHayvaniSorumlusuMu())
             {

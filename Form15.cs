@@ -30,6 +30,7 @@ namespace VeterinerProjectApp
         {
             var veriYoneticisi = VeriYoneticisi.Instance;
             
+            // Eğer bir hayvan seçildiyse onun detaylarını göstereceğiz
             if (_seciliHayvan != null)
             {
                 // Seçili hayvanı göster
@@ -39,12 +40,14 @@ namespace VeterinerProjectApp
                 textBox5.Text = _seciliHayvan.BulunmaTarihi.ToString("dd.MM.yyyy");
                 textBox6.Text = _seciliHayvan.SaglikDurumu;
                 
+                // Diğer bilgileri birleştirip büyük kutuya yazacağız
                 StringBuilder islemler = new StringBuilder();
                 islemler.AppendLine($"Bölge: {_seciliHayvan.BulunduguBolge}");
                 islemler.AppendLine($"Kısırlaştırıldı: {(_seciliHayvan.KisirlastirildiMi ? "Evet" : "Hayır")}");
                 islemler.AppendLine($"Tedavi Onayı: {(_seciliHayvan.TedaviOnayliMi ? "Onaylı" : "Beklemede")}");
                 islemler.AppendLine($"Sorumlu: {_seciliHayvan.SorumluAdi}");
                 
+                // Eğer muayene geçmişi varsa onları da listele
                 if (_seciliHayvan.MuayeneGecmisi.Count > 0)
                 {
                     islemler.AppendLine("\r\n=== MUAYENELER ===");
@@ -58,7 +61,7 @@ namespace VeterinerProjectApp
             }
             else if (veriYoneticisi.SokakHayvanlari.Count > 0)
             {
-                // İlk sokak hayvanını göster
+                // Eğer seçili hayvan yoksa ve listede hayvan varsa, ilkini göster (Test amaçlı)
                 var ilkHayvan = veriYoneticisi.SokakHayvanlari[0];
                 textBox2.Text = $"{ilkHayvan.Tur} - {ilkHayvan.Irk}";
                 textBox3.Text = ilkHayvan.Yas.ToString();
@@ -69,7 +72,7 @@ namespace VeterinerProjectApp
             }
             else
             {
-                // Varsayılan değerler
+                // Hiçbir veri yoksa varsayılan değerleri basıyoruz ki form boş görünmesin
                 textBox2.Text = "Köpek - Melez";
                 textBox3.Text = "2";
                 textBox4.Text = "SK-001";

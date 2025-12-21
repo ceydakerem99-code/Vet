@@ -95,13 +95,17 @@ namespace VeterinerProjectApp.Services
 
         private void LogYaz(string log)
         {
+            // Dosyaya yazarken hata çıkarsa program patlamasın diye try-catch içine aldım
             try
             {
-                File.AppendAllText(_logDosyasi, log, Encoding.UTF8);// türkçe karakter bozulmasını engeelledik
+                // Log dosyasının sonuna yeni logu ekliyoruz
+                // Encoding.UTF8 kullanmamızın sebebi Türkçe karakterlerin bozulmasını engellemek
+                File.AppendAllText(_logDosyasi, log, Encoding.UTF8);
             }
             catch
             {
-                // Log yazma hatası (programın durmasını engelledik)
+                // Log yazma hatası oluşursa kullanıcıya göstermeye gerek yok
+                // Bu yüzden burayı boş bıraktım
             }
         }
 

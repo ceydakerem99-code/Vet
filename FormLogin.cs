@@ -15,74 +15,75 @@ namespace VeterinerProjectApp
 
         private void InitializeComponent()
         {
+            // Form ayarlarını yapıyoruz
             this.Text = "Veteriner Klinik - Giriş";
             this.Size = new Size(1390, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(62, 166, 107);
+            this.MaximizeBox = false; // Tam ekran yapılmasını engelle
+            this.BackColor = Color.FromArgb(62, 166, 107); // Yeşil arka plan rengi
 
-            // Başlık - ORTALI
-            Label lblTitle = new Label();
-            lblTitle.Text = "🐾 VETERİNER KLİNİK";
-            lblTitle.Font = new Font("Segoe UI", 28, FontStyle.Bold);
-            lblTitle.ForeColor = Color.White;
-            lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(480, 100);
-            this.Controls.Add(lblTitle);
+            // Başlık Label'ı - Sayfanın en üstündeki yazı
+            Label lblBaslik = new Label();
+            lblBaslik.Text = "🐾 VETERİNER KLİNİK";
+            lblBaslik.Font = new Font("Segoe UI", 28, FontStyle.Bold);
+            lblBaslik.ForeColor = Color.White;
+            lblBaslik.AutoSize = true;
+            lblBaslik.Location = new Point(480, 100);
+            this.Controls.Add(lblBaslik);
 
-            // Alt başlık - SİYAH
-            Label lblSubtitle = new Label();
-            lblSubtitle.Text = "Sisteme Giriş Yapın";
-            lblSubtitle.Font = new Font("Segoe UI", 14);
-            lblSubtitle.ForeColor = Color.Black;
-            lblSubtitle.AutoSize = true;
-            lblSubtitle.Location = new Point(580, 160);
-            this.Controls.Add(lblSubtitle);
+            // Alt başlık - Kullanıcıya ne yapacağını söyleyen yazı
+            Label lblAltBaslik = new Label();
+            lblAltBaslik.Text = "Sisteme Giriş Yapın";
+            lblAltBaslik.Font = new Font("Segoe UI", 14);
+            lblAltBaslik.ForeColor = Color.Black;
+            lblAltBaslik.AutoSize = true;
+            lblAltBaslik.Location = new Point(580, 160);
+            this.Controls.Add(lblAltBaslik);
 
-            // E-posta label
-            Label lblEmail = new Label();
-            lblEmail.Text = "E-posta:";
-            lblEmail.Font = new Font("Segoe UI", 11);
-            lblEmail.Location = new Point(470, 220);
-            lblEmail.AutoSize = true;
-            this.Controls.Add(lblEmail);
+            // E-posta etiketi
+            Label lblEposta = new Label();
+            lblEposta.Text = "E-posta:";
+            lblEposta.Font = new Font("Segoe UI", 11);
+            lblEposta.Location = new Point(470, 220);
+            lblEposta.AutoSize = true;
+            this.Controls.Add(lblEposta);
 
-            // E-posta textbox
-            txtEmail = new TextBox();
-            txtEmail.Location = new Point(470, 250);
-            txtEmail.Size = new Size(450, 40);
-            txtEmail.Font = new Font("Segoe UI", 14);
-            this.Controls.Add(txtEmail);
+            // E-posta girilecek kutucuk
+            txtEposta = new TextBox();
+            txtEposta.Location = new Point(470, 250);
+            txtEposta.Size = new Size(450, 40);
+            txtEposta.Font = new Font("Segoe UI", 14);
+            this.Controls.Add(txtEposta);
 
-            // Şifre label
-            Label lblPassword = new Label();
-            lblPassword.Text = "Şifre:";
-            lblPassword.Font = new Font("Segoe UI", 11);
-            lblPassword.Location = new Point(470, 310);
-            lblPassword.AutoSize = true;
-            this.Controls.Add(lblPassword);
+            // Şifre etiketi
+            Label lblSifre = new Label();
+            lblSifre.Text = "Şifre:";
+            lblSifre.Font = new Font("Segoe UI", 11);
+            lblSifre.Location = new Point(470, 310);
+            lblSifre.AutoSize = true;
+            this.Controls.Add(lblSifre);
 
-            // Şifre textbox
-            txtPassword = new TextBox();
-            txtPassword.Location = new Point(470, 340);
-            txtPassword.Size = new Size(450, 40);
-            txtPassword.Font = new Font("Segoe UI", 14);
-            txtPassword.PasswordChar = '●';
-            this.Controls.Add(txtPassword);
+            // Şifre girilecek kutucuk
+            txtSifre = new TextBox();
+            txtSifre.Location = new Point(470, 340);
+            txtSifre.Size = new Size(450, 40);
+            txtSifre.Font = new Font("Segoe UI", 14);
+            txtSifre.PasswordChar = '●'; // Şifreyi gizlemek için nokta koy
+            this.Controls.Add(txtSifre);
 
-            // Giriş butonu
-            btnLogin = new Button();
-            btnLogin.Text = "Giriş Yap";
-            btnLogin.Location = new Point(470, 420);
-            btnLogin.Size = new Size(450, 55);
-            btnLogin.BackColor = Color.FromArgb(255, 216, 63);
-            btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.Font = new Font("Segoe UI", 14, FontStyle.Bold);
-            btnLogin.Cursor = Cursors.Hand;
-            btnLogin.Click += BtnLogin_Click;
-            this.Controls.Add(btnLogin);
+            // Giriş yapma butonu
+            btnGirisYap = new Button();
+            btnGirisYap.Text = "Giriş Yap";
+            btnGirisYap.Location = new Point(470, 420);
+            btnGirisYap.Size = new Size(450, 55);
+            btnGirisYap.BackColor = Color.FromArgb(255, 216, 63); // Sarı renk
+            btnGirisYap.FlatStyle = FlatStyle.Flat;
+            btnGirisYap.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+            btnGirisYap.Cursor = Cursors.Hand; // Üzerine gelince el işareti çıksın
+            btnGirisYap.Click += BtnGirisYap_Click; // Tıklanınca çalışacak fonksiyon
+            this.Controls.Add(btnGirisYap);
 
-            // Kayıt Ol butonu
+            // Kayıt Ol butonu - Yeni kullanıcılar için
             Button btnKayitOl = new Button();
             btnKayitOl.Text = "Kayıt Ol";
             btnKayitOl.Location = new Point(470, 490);
@@ -93,35 +94,39 @@ namespace VeterinerProjectApp
             btnKayitOl.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             btnKayitOl.Cursor = Cursors.Hand;
             btnKayitOl.Click += (s, ev) => {
+                // Kayıt formuna geçiş yapıyoruz
                 FormKayit kayitForm = new FormKayit();
-                this.Hide();
-                kayitForm.Show();
-                kayitForm.FormClosed += (s2, e2) => this.Close();
+                this.Hide(); // Bu formu gizle
+                kayitForm.Show(); // Kayıt formunu aç
+                kayitForm.FormClosed += (s2, e2) => this.Close(); // Kayıt formu kapanınca uygulamayı kapat
             };
             this.Controls.Add(btnKayitOl);
         }
 
-        private TextBox txtEmail;
-        private TextBox txtPassword;
-        private Button btnLogin;
+        // Form elemanlarını burada tanımladım
+        private TextBox txtEposta;
+        private TextBox txtSifre;
+        private Button btnGirisYap;
 
 
-
-        private void BtnLogin_Click(object sender, EventArgs e)
+        // Giriş butonuna tıklandığında bu metod çalışır
+        private void BtnGirisYap_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text.Trim();
-            string sifre = txtPassword.Text;
+            string email = txtEposta.Text.Trim(); // Boşlukları temizle
+            string sifre = txtSifre.Text;
 
+            // Eğer alanlardan biri boşsa uyarı ver
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
             {
                 MessageBox.Show("Lütfen e-posta ve şifre girin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Verileri ve oturum yöneticisini alıyoruz
             var veriYoneticisi = VeriYoneticisi.Instance;
             var oturumYoneticisi = OturumYoneticisi.Instance;
 
-            // Admin kontrolü
+            // 1. Admin girişi kontrolü
             foreach (var admin in veriYoneticisi.Veterinerler)
             {
                 if (oturumYoneticisi.GirisYap(admin, email, sifre))
@@ -132,7 +137,7 @@ namespace VeterinerProjectApp
                 }
             }
 
-            // Kullanıcı kontrolü
+            // 2. Hayvan Sahibi girişi kontrolü
             foreach (var sahip in veriYoneticisi.HayvanSahipleri)
             {
                 if (oturumYoneticisi.GirisYap(sahip, email, sifre))
@@ -143,7 +148,7 @@ namespace VeterinerProjectApp
                 }
             }
 
-            // Sorumlu kontrolü
+            // 3. Sorumlu personeli girişi kontrolü
             foreach (var sorumlu in veriYoneticisi.Sorumlular)
             {
                 if (oturumYoneticisi.GirisYap(sorumlu, email, sifre))
@@ -154,17 +159,18 @@ namespace VeterinerProjectApp
                 }
             }
 
+            // Eğer hiçbir kullanıcı bulunamazsa hata mesajı göster
             MessageBox.Show("E-posta veya şifre hatalı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
-
+        // Ana sayfayı açan yardımcı metod
         private void AnaFormAc()
         {
             Form1 anaForm = new Form1();
             this.Hide();
             anaForm.Show();
-            anaForm.FormClosed += (s, args) => this.Close();
+            anaForm.FormClosed += (s, args) => this.Close(); 
         }
     }
 }

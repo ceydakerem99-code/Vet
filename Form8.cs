@@ -30,11 +30,11 @@ namespace VeterinerProjectApp
         {
             var veriYoneticisi = VeriYoneticisi.Instance;
             
-            // Günlük muayeneler
+            // günlük muayeneler
             int gunlukSayi = veriYoneticisi.GunlukMuayeneSayisi(DateTime.Now);
             textBox3.Text = gunlukSayi.ToString();
             
-            // Aylık muayeneler
+            // aylık muayeneler
             int aylikSayi = 0;
             for (int i = 0; i < 30; i++)
             {
